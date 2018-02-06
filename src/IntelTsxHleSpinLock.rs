@@ -25,7 +25,7 @@ impl SpinLock for IntelTsxHleSpinLock
 	#[inline(always)]
 	fn acquire_spin_lock(&self)
 	{
-		while self.try_to_acquire_spin_lock()
+		while !self.try_to_acquire_spin_lock()
 		{
 			while self.is_locked()
 			{
@@ -54,6 +54,12 @@ impl SpinLock for IntelTsxHleSpinLock
 	fn is_locked(&self) -> bool
 	{
 		unsafe { *self.lock() == Self::Locked }
+	}
+	
+	#[inline(always)]
+	fn is_unlocked(&self) -> bool
+	{
+		unsafe { *self.lock() == Self::Unlocked }
 	}
 	
 	#[inline(always)]

@@ -21,6 +21,10 @@ pub trait SpinLock: Default
 	#[inline(always)]
 	fn is_locked(&self) -> bool;
 	
+	/// Returns true if unlocked.
+	#[inline(always)]
+	fn is_unlocked(&self) -> bool;
+	
 	/// Forcibly unlocks the spin lock, even if it is currently unlocked.
 	/// Useful for working with persistent memory.
 	#[inline(always)]

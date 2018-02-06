@@ -20,7 +20,7 @@ impl SpinLock for AtomicBoolSpinLock
 	#[inline(always)]
 	fn acquire_spin_lock(&self)
 	{
-		while self.try_to_acquire_spin_lock()
+		while !self.try_to_acquire_spin_lock()
 		{
 			while self.is_locked()
 			{
@@ -49,6 +49,12 @@ impl SpinLock for AtomicBoolSpinLock
 	fn is_locked(&self) -> bool
 	{
 		self.0.load(Relaxed) == Self::Locked
+	}
+	
+	#[inline(always)]
+	fn is_unlocked(&self) -> bool
+	{
+		self.0.load(Relaxed) == Self::Unlocked
 	}
 	
 	#[inline(always)]
