@@ -3,7 +3,7 @@
 
 
 /// A spin-lock API.
-pub(crate) trait SpinLock: Default
+pub trait SpinLock: Default
 {
 	/// Returns true if acquired spin lock.
 	#[inline(always)]
